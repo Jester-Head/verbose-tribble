@@ -1,3 +1,7 @@
+import csv
+from typing import TextIO
+
+
 class Process:
 
     def __init__(self, signer, company, image_path, vt_permalink, vt_detection=None):
@@ -11,9 +15,9 @@ class Process:
     def vt_str(self):
         return f'VT Score: {self.vt_detection}, {self.vt_permalink}'
 
-    # Display full object...Looks ugly. need to fix
+    # Display full object
     def __str__(self):
-        return f'{self.signer},{self.company},{self.image_path},{self.vt_detection},{self.vt_permalink}'
+        return f'{self.signer},{self.company},{self.image_path},{self.vt_detection},{self.vt_permalink} '
 
     def find_vt_score(self):
         """Finds the first number in vt detection field and returns as integer."""
