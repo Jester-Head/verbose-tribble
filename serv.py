@@ -1,20 +1,25 @@
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import time
 
-
-class Serv(BaseHTTPRequestHandler):
-
+class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path == '/':
-            self.path = '/index.html'
-        try:
-            file_to_open = open(self.path[1:]).read()
-            self.send_response(200)
-        except:
-            file_to_open = "File not found"
-            self.send_response(404)
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
         self.end_headers()
-        self.wfile.write(bytes(file_to_open, 'utf-8'))
+        self.wfile.write(bytes("<html><head><title>https:test.com</title></head>", "utf-8"))
+        # self.wfile.write(bytes("<p>Request: {self.path}</p>","utf-8"))
+        self.wfile.write(bytes("<body>", "utf-8"))
+        self.wfile.write(bytes("<p>Hello World!</p>", "utf-8"))
+        self.wfile.write(bytes("</body></html>", "utf-8"))
 
+    def server_connect(hostName,serverPort):      
+        webServer = HTTPServer((hostName, serverPort), MyServer)
+        print(f'Server started {hostName}{serverPort}')
 
-httpd = HTTPServer(('localhost', 8080), Serv)
-httpd.serve_forever()
+        try:
+            webServer.serve_forever()
+        except KeyboardInterrupt:
+            pass
+
+        webServer.server_close()
+        print("Server stopped.")
