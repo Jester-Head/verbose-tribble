@@ -8,7 +8,7 @@ A python script that utilizes scheduled Autoruns executions to monitor automatic
 
 - Python 3.10
 - [watchdog 2.1.7](https://pypi.org/project/watchdog/)
-- [Sysinternals Suite](https://apps.microsoft.com/store/detail/sysinternals-suite/9P7KNL5RWT25?hl=en-us&gl=US) 
+- [Sysinternals Suite](https://apps.microsoft.com/store/detail/sysinternals-suite/9P7KNL5RWT25?hl=en-us&gl=US)
 - [autoruns](<https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns>)
 
 ### Installing

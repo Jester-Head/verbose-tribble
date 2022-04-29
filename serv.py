@@ -1,25 +1,33 @@
+from cgitb import html
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from importlib.resources import path
 import time
+import http.server
+import socketserver
+
 
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
+        if self.path == '/':
+           self.path = '/results.html'
+        try:
+           file_to_open = open(self.path[1:]).read()
+           self.send_response(200)
+        except:
+           file_to_open = "File not found"
+           self.send_response(404)
         self.end_headers()
-        self.wfile.write(bytes("<html><head><title>https:test.com</title></head>", "utf-8"))
-        # self.wfile.write(bytes("<p>Request: {self.path}</p>","utf-8"))
-        self.wfile.write(bytes("<body>", "utf-8"))
-        self.wfile.write(bytes("<p>Hello World!</p>", "utf-8"))
-        self.wfile.write(bytes("</body></html>", "utf-8"))
+        self.wfile.write(bytes(file_to_open, 'utf-8'))
+
+
 
     def server_connect(hostName,serverPort):      
         webServer = HTTPServer((hostName, serverPort), MyServer)
         print(f'Server started {hostName}{serverPort}')
-
         try:
             webServer.serve_forever()
         except KeyboardInterrupt:
-            pass
+            webServer.server_close()
+            print("Server stopped.")
 
-        webServer.server_close()
-        print("Server stopped.")
+            
