@@ -1,7 +1,3 @@
-import csv
-from typing import TextIO
-
-
 class Process:
 
     def __init__(self, signer, company, image_path, vt_permalink, vt_detection=None):
