@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+
+# Created while the tool runs
+output.txt
+done.txt
+results.html
