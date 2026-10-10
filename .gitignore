@@ -5,3 +5,6 @@ __pycache__/
 output.txt
 done.txt
 results.html
+
+# Local virtual environment
+.venv/
