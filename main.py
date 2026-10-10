@@ -1,11 +1,12 @@
 import csv
+import os
 import time
 from datetime import datetime
 from pathlib import Path
 
 from tabulate import tabulate
 from watchdog.events import FileSystemEventHandler
-from watchdog.observers import Observer
+import watchdog.observers
 
 import process as p
 from serv import MyServer, RESULTS_FILE
@@ -42,7 +43,8 @@ class Handler(FileSystemEventHandler):
         time.sleep(1)
         date = datetime.now()
         fdate = date.strftime('%Y-%m-%d %H:%M:%S')
-        if Path(event.src_path).name == DONE_FILE_NAME:
+        src_path = os.fsdecode(event.src_path)
+        if Path(src_path).name == DONE_FILE_NAME:
             print(f'{fdate} File modified - {event.src_path}')
             process_list = add_process()
             write_processes_file(process_list)
@@ -88,7 +90,7 @@ def write_processes_file(process_list, threshold=1):
 
 if __name__ == "__main__":
     event_handler = Handler()
-    observer = Observer()
+    observer = watchdog.observers.Observer()
     observer.schedule(event_handler, path=str(LOG_DIR), recursive=True)
     observer.start()
     hostName = 'localhost'
