@@ -1,2 +1,6 @@
-"C:\Program Files\WindowsApps\Microsoft.SysinternalsSuite_2.0.0.0_x64__8wekyb3d8bbwe\Tools\autorunsc.exe" -a * -c -u -vt -accepteula -nobanner > C:\logger\output.txt
+@echo off
+rem Where autorunsc.exe lives. Change this if Sysinternals is installed somewhere else.
+set "AUTORUNSC=C:\Program Files\SysinternalsSuite\autorunsc.exe"
+
+"%AUTORUNSC%" -a * -c -u -vt -accepteula -nobanner > C:\logger\output.txt
 echo %date% %time% > C:\logger\done.txt
